@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'To-Do List')</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    @vite(['resources/css/app.css'])
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
 
-    @include('layouts.navbar')  {{-- Memasukkan Navbar --}}
+    @include('layouts.navbar')
 
     <div class="container mt-4">
-        @yield('content')  {{-- Tempat konten halaman --}}
+        @yield('content')
     </div>
 
-    @include('layouts.footer')  {{-- Memasukkan Footer --}}
+    @include('layouts.footer')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

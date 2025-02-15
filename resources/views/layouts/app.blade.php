@@ -7,13 +7,14 @@
     <title>@yield('title', 'To-Do List')</title>
     @vite(['resources/css/app.css'])
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     @include('layouts.navbar')
 
-    <div class="container mt-4">
+    <div class="container">
         @yield('content')
     </div>
 

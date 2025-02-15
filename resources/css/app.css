@@ -2,25 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* *{
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.4s ease;;
-} */
+    font-family: 'Rowdies', serif;
+    transition: all 0.4s ease;
+    ;
+}
 
 /* ===== Colours ===== */
 :root {
-    --body-color: #E4E9F7;
-    --nav-color: #588157;
-    --side-nav: #010718;
-    --text-color: #FFF;
+    --body-color: #F8F7E5;
+    /* --nav-color: #FF834F; */
+    --side-nav: #ec7949;
+    --text-color: #1D1D1D;
+    --dropdown-color: #ec7949;
 }
 
-footer {
-    display: flex;
-    justify-content: center;
+body.dark {
+    --body-color: #18191A;
+    /* --nav-color: #242526; */
+    --side-nav: #242526;
+    --text-color: #CCC;
+    --dropdown-color: #F8F7E5;
 }
 
 body {
@@ -28,25 +32,29 @@ body {
     background-color: var(--body-color);
 }
 
-body.dark {
-    --body-color: #18191A;
-    --nav-color: #242526;
-    --side-nav: #242526;
-    --text-color: #CCC;
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    color: var(--text-color);
+}
+
+/* Navbar */
 nav {
     position: fixed;
-    top: 0;
+    top: 15px;
     left: 0;
     height: 70px;
     width: 100%;
-    background-color: var(--nav-color);
+    /* background-color: var(--nav-color); */
     z-index: 100;
-}
-
-body.dark nav {
-    border: 1px solid #393838;
 }
 
 nav .nav-bar {
@@ -54,7 +62,9 @@ nav .nav-bar {
     height: 100%;
     max-width: 1000px;
     width: 100%;
-    background-color: var(--nav-color);
+    border-radius: 30px;
+    border: 2px solid var(--text-color);
+    /* background-color: var(--nav-color); */
     margin: 0 auto;
     padding: 0 30px;
     display: flex;
@@ -64,7 +74,7 @@ nav .nav-bar {
 
 nav .nav-bar .sidebarOpen {
     color: var(--text-color);
-    font-size: 25px;
+    font-size: 30px;
     padding: 5px;
     cursor: pointer;
     display: none;
@@ -84,6 +94,10 @@ nav .nav-bar .logo a {
 .nav-bar .nav-links {
     display: flex;
     align-items: center;
+    /* position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%); */
 }
 
 .nav-bar .nav-links li {
@@ -106,9 +120,9 @@ nav .nav-bar .logo a {
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
+    height: 3px;
+    width: 0;
+    border-radius: 30px;
     background-color: var(--text-color);
     opacity: 0;
     transition: all 0.3s ease;
@@ -116,8 +130,10 @@ nav .nav-bar .logo a {
 
 .nav-links li:hover a::before {
     opacity: 1;
+    width: 70%;
 }
 
+/* Dark Mode */
 .nav-bar .darkLight-mode {
     display: flex;
     align-items: center;
@@ -129,15 +145,16 @@ nav .nav-bar .logo a {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 5px;
+    margin: 0 8px;
 }
 
 .dark-light i {
     position: absolute;
     color: var(--text-color);
-    font-size: 22px;
+    font-size: 26px;
     cursor: pointer;
     transition: all 0.3s ease;
+
 }
 
 .dark-light i.sun {
@@ -155,58 +172,86 @@ nav .nav-bar .logo a {
     pointer-events: none;
 }
 
-/* User Menu */
+/* profile */
 .userMenu {
     position: relative;
     cursor: pointer;
+    display: flex;
 }
 
 .userMenu .profileToggle img {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 }
 
-/* Dropdown */
+/* Dropdown Menu */
 .profile-dropdown {
-    display: none;
     position: absolute;
     right: 0;
     top: 50px;
-    background: white;
-    border: 1px solid #ccc;
+    background: var(--dropdown-color);
     border-radius: 5px;
     width: 150px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     z-index: 200;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+body.dark .profile-dropdown {
+    border-radius: 5px;
+}
+
+/* arrow */
+.profile-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid var(--dropdown-color);
+    z-index: -10;
+}
+
+.profile-dropdown.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Text menu */
 .profile-dropdown a,
 .profile-dropdown button {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     text-align: left;
-    border: none;
-    background: none;
+    margin-left: 6px;
     cursor: pointer;
     text-decoration: none;
-    color: #000;
+    color: var(--body-color);
 }
 
-/* text hover */
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
-    color: #4070F4;
-}
-
-body.dark .profile-dropdown a{
-    background: var(--text-color);
+    color: var(--text-color);
 }
 
 @media (max-width: 790px) {
     nav .nav-bar .sidebarOpen {
         display: block;
+    }
+
+    nav {
+        top: 0;
+        border-bottom: 2px solid var(--text-color);
+    }
+
+    nav .nav-bar {
+        border: none;
+        border-radius: 0;
     }
 
     .menu {
@@ -240,13 +285,16 @@ body.dark .profile-dropdown a{
 
     .logo-toggle .siderbarClose {
         color: var(--text-color);
-        font-size: 24px;
+        font-size: 32px;
         cursor: pointer;
     }
 
     .nav-bar .nav-links {
         flex-direction: column;
         padding-top: 30px;
+        /* position: relative;
+        left: 0;
+        transform: translateX(0); */
     }
 
     .nav-links li a {
@@ -265,14 +313,31 @@ body.dark .profile-dropdown a{
 
     .profile-dropdown {
         position: absolute;
-        right: 0;
         left: 0;
-        top: 50px;
-        width: 100%; /* Dropdown seluas sidebar */
-        background: white;
-        border-radius: 0;
-        box-shadow: none;
-        z-index: 100;
+        background: var(--body-color);
+        border-radius: 5px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+        z-index: 200;
+    }
+
+    .profile-dropdown::before {
+        right: 125px;
+        border-bottom: 10px solid var(--body-color);
+    }
+
+    .profile-dropdown a,
+    .profile-dropdown button {
+        color: var(--text-color);
+    }
+
+    .profile-dropdown a:hover,
+    .profile-dropdown button:hover {
+        color: var(--side-nav);
+        z-index: 5;
+    }
+
+    .darkLight-mode .dark-light {
+        margin: 0;
     }
 }
 

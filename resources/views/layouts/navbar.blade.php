@@ -10,8 +10,8 @@
                 <i class='bx bx-x siderbarClose'></i>
             </div>
             <ul class="nav-links">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">My Times</a></li>
+                <li><a href="#">DASHBOARD</a></li>
+                <li><a href="#">MY TIMES</a></li>
             </ul>
         </div>
 
@@ -27,8 +27,8 @@
                     <img src="https://i.pravatar.cc/40" alt="User">
                 </div>
                 <div class="profile-dropdown">
-                    <a href="#">Profil</a>
-                    <a href="#">Logout</a>
+                    <a href="#">PROFIL MENU</a>
+                    <a href="#">LOGOUT</a>
                 </div>
             </div>
 
@@ -69,15 +69,26 @@
         });
 
         // js code toggle profile menu
-        userMenu.addEventListener("click", (e) => {
-            e.stopPropagation();
-            profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" :
-            "block";
+        userMenu.addEventListener("click", function() {
+            profileDropdown.classList.toggle("active");
         });
 
-        document.addEventListener("click", (e) => {
-            if (!userMenu.contains(e.target)) {
-                profileDropdown.style.display = "none";
+        userMenu.addEventListener("click", function(e) {
+            e.stopPropagation();
+        });
+
+        document.querySelectorAll(".profile-dropdown a, .profile-dropdown button").forEach(item => {
+            item.addEventListener("click", function(e) {
+                e.stopPropagation();
+                nav.classList.remove("active");
+                profileDropdown.classList.remove(
+                "active");
+            });
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!userMenu.contains(event.target) && !profileDropdown.contains(event.target)) {
+                profileDropdown.classList.remove("active");
             }
         });
 
@@ -102,7 +113,7 @@
         body.addEventListener("click", e => {
             let clickedElm = e.target;
             if (!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains(
-                "menu")) {
+                    "menu")) {
                 nav.classList.remove("active");
             }
         });

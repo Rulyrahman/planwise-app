@@ -1,3 +1,348 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Rowdies', serif;
+    transition: all 0.4s ease;
+    ;
+}
+
+/* ===== Colours ===== */
+:root {
+    --body-color: #F8F7E5;
+    /* --nav-color: #FF834F; */
+    --side-nav: #ec7949;
+    --text-color: #1D1D1D;
+    --dropdown-color: #ec7949;
+}
+
+body.dark {
+    --body-color: #18191A;
+    /* --nav-color: #242526; */
+    --side-nav: #242526;
+    --text-color: #CCC;
+    --dropdown-color: #F8F7E5;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--body-color);
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    color: var(--text-color);
+}
+
+/* Navbar */
+nav {
+    position: fixed;
+    top: 15px;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    /* background-color: var(--nav-color); */
+    z-index: 100;
+}
+
+nav .nav-bar {
+    position: relative;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+    border-radius: 30px;
+    border: 2px solid var(--text-color);
+    /* background-color: var(--nav-color); */
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .sidebarOpen {
+    color: var(--text-color);
+    font-size: 30px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a {
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle {
+    display: none;
+}
+
+.nav-bar .nav-links {
+    display: flex;
+    align-items: center;
+    /* position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%); */
+}
+
+.nav-bar .nav-links li {
+    margin: 0 5px;
+    list-style: none;
+}
+
+.nav-links li a {
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 3px;
+    width: 0;
+    border-radius: 30px;
+    background-color: var(--text-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-links li:hover a::before {
+    opacity: 1;
+    width: 70%;
+}
+
+/* Dark Mode */
+.nav-bar .darkLight-mode {
+    display: flex;
+    align-items: center;
+}
+
+.darkLight-mode .dark-light {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+}
+
+.dark-light i {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 26px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+.dark-light i.sun {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dark-light.active i.sun {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dark-light.active i.moon {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* profile */
+.userMenu {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+}
+
+.userMenu .profileToggle img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+/* Dropdown Menu */
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: var(--dropdown-color);
+    border-radius: 5px;
+    width: 150px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+body.dark .profile-dropdown {
+    border-radius: 5px;
+}
+
+/* arrow */
+.profile-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid var(--dropdown-color);
+    z-index: -10;
+}
+
+.profile-dropdown.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Text menu */
+.profile-dropdown a,
+.profile-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    text-align: left;
+    margin-left: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--body-color);
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+    color: var(--text-color);
+}
+
+@media (max-width: 790px) {
+    nav .nav-bar .sidebarOpen {
+        display: block;
+    }
+
+    nav {
+        top: 0;
+        border-bottom: 2px solid var(--text-color);
+    }
+
+    nav .nav-bar {
+        border: none;
+        border-radius: 0;
+    }
+
+    .menu {
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color: var(--side-nav);
+        z-index: 100;
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu {
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navLogo a {
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle {
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose {
+        color: var(--text-color);
+        font-size: 32px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-links {
+        flex-direction: column;
+        padding-top: 30px;
+        /* position: relative;
+        left: 0;
+        transform: translateX(0); */
+    }
+
+    .nav-links li a {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .profile-container {
+        display: block;
+    }
+
+    .userMenu {
+        position: relative;
+        width: 100%;
+    }
+
+    .profile-dropdown {
+        position: absolute;
+        left: 0;
+        background: var(--body-color);
+        border-radius: 5px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+        z-index: 200;
+    }
+
+    .profile-dropdown::before {
+        right: 125px;
+        border-bottom: 10px solid var(--body-color);
+    }
+
+    .profile-dropdown a,
+    .profile-dropdown button {
+        color: var(--text-color);
+    }
+
+    .profile-dropdown a:hover,
+    .profile-dropdown button:hover {
+        color: var(--side-nav);
+        z-index: 5;
+    }
+
+    .darkLight-mode .dark-light {
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .profile-container {
+        display: none;
+    }
+}

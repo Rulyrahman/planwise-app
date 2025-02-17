@@ -32,13 +32,6 @@ body {
     background-color: var(--body-color);
 }
 
-.container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 footer {
     display: flex;
     justify-content: center;
@@ -239,110 +232,66 @@ body.dark .profile-dropdown {
     color: var(--text-color);
 }
 
-@media (max-width: 790px) {
-    nav .nav-bar .sidebarOpen {
-        display: block;
-    }
-
-    nav {
-        top: 0;
-        border-bottom: 2px solid var(--text-color);
-    }
-
-    nav .nav-bar {
-        border: none;
-        border-radius: 0;
-    }
-
-    .menu {
-        position: fixed;
-        height: 100%;
-        width: 320px;
-        left: -100%;
-        top: 0;
-        padding: 20px;
-        background-color: var(--side-nav);
-        z-index: 100;
-        transition: all 0.4s ease;
-    }
-
-    nav.active .menu {
-        left: -0%;
-    }
-
-    nav.active .nav-bar .navLogo a {
-        opacity: 0;
-        transition: all 0.3s ease;
-    }
-
-    .menu .logo-toggle {
-        display: block;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .logo-toggle .siderbarClose {
-        color: var(--text-color);
-        font-size: 32px;
-        cursor: pointer;
-    }
-
-    .nav-bar .nav-links {
-        flex-direction: column;
-        padding-top: 30px;
-        /* position: relative;
-        left: 0;
-        transform: translateX(0); */
-    }
-
-    .nav-links li a {
-        display: block;
-        margin-top: 20px;
-    }
-
-    .profile-container {
-        display: block;
-    }
-
-    .userMenu {
-        position: relative;
-        width: 100%;
-    }
-
-    .profile-dropdown {
-        position: absolute;
-        left: 0;
-        background: var(--body-color);
-        border-radius: 5px;
-        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-        z-index: 200;
-    }
-
-    .profile-dropdown::before {
-        right: 125px;
-        border-bottom: 10px solid var(--body-color);
-    }
-
-    .profile-dropdown a,
-    .profile-dropdown button {
-        color: var(--text-color);
-    }
-
-    .profile-dropdown a:hover,
-    .profile-dropdown button:hover {
-        color: var(--side-nav);
-        z-index: 5;
-    }
-
-    .darkLight-mode .dark-light {
-        margin: 0;
-    }
+/* Homepage */
+.homepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-@media screen and (min-width: 769px) {
-    .profile-container {
-        display: none;
-    }
+.content-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.home-content {
+    width: 500px;
+    height: 300px;
+    border: 1px solid #18191A;
+    border-radius: 30px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+
+.section-profile {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    border-bottom: 1px solid var(--text-color);
+    padding: 8px 16px;
+}
+
+.section-profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    outline: 1px solid var(--text-color);
+    outline-offset: 2px;
+}
+
+.schedule {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid var(--text-color);
+    border-radius: 15px;
+    background-color: var(--text-color);
+    padding: 2px 6px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.schedule a {
+    font-weight: 100;
+    color: var(--body-color);
+    padding: 3px;
+}
+
+.schedule i {
+    font-size: 26px;
+    color: var(--body-color);
 }

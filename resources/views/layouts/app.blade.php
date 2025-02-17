@@ -16,9 +16,7 @@
 
     @include('layouts.navbar')
 
-    <div class="container">
-        @yield('content')
-    </div>
+    @yield('content')
 
     @include('layouts.footer')
 

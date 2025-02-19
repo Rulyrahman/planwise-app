@@ -1,4 +1,4 @@
-@media (max-width: 790px) {
+@media (max-width: 768px) {
     nav .nav-bar .sidebarOpen {
         display: block;
     }
@@ -6,11 +6,13 @@
     nav {
         top: 0;
         border-bottom: 2px solid var(--text-color);
+        max-width: 100%;
     }
 
     nav .nav-bar {
         border: none;
         border-radius: 0;
+        padding: 0 15px;
     }
 
     .menu {
@@ -98,10 +100,24 @@
     .darkLight-mode .dark-light {
         margin: 0 0;
     }
-}
 
-@media screen and (min-width: 769px) {
-    .profile-container {
-        display: none;
+    .home-content{
+        width: 350px;
+    }
+
+    .content-view img {
+        max-width: 200px;
+    }
+
+    .scroller {
+        height: 150px;
+        margin-left: 8px;
+        padding: 10px;
+    }
+
+    .text-list li {
+        max-width: 100%;
+        word-wrap: break-word;
+        font-size: xx-small;
     }
 }

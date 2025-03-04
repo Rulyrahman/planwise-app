@@ -10,7 +10,7 @@
                 <i class='bx bx-x siderbarClose'></i>
             </div>
             <ul class="nav-links">
-                <li><a href="#">DASHBOARD</a></li>
+                <li><a href="/">DASHBOARD</a></li>
                 <li><a href="#">MY TIMES</a></li>
             </ul>
         </div>
@@ -24,12 +24,18 @@
 
             <div class="userMenu">
                 <div class="profileToggle">
-                    <img src="https://i.pravatar.cc/40" alt="User">
+                    @if (Auth::check())
+                        <img src="{{ Auth::user()->profile_image ?? 'https://i.pravatar.cc/40' }}" alt="User">
+                    @else
+                        <a href="/login"><i class='bx bx-user-circle'></i></a>
+                    @endif
                 </div>
-                <div class="profile-dropdown">
-                    <a href="#">PROFIL MENU</a>
-                    <a href="#">LOGOUT</a>
-                </div>
+                @if (Auth::check())
+                    <div class="profile-dropdown">
+                        <a href="#">PROFIL MENU</a>
+                        <a href="#">LOGOUT</a>
+                    </div>
+                @endif
             </div>
 
         </div>

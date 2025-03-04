@@ -14,13 +14,17 @@
 
 <body>
 
-    @include('layouts.navbar')
+    @if(!in_array(request()->path(), ['login', 'register']))
+        @include('layouts.navbar')
+    @endif
 
     <div class="main-content">
         @yield('content')
     </div>
 
-    @include('layouts.footer')
+    @if(!in_array(request()->path(), ['login', 'register']))
+        @include('layouts.footer')
+    @endif
 
 </body>
 

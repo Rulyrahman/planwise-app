@@ -5,11 +5,11 @@
 @section('content')
     <div class="home-content">
         <div class="section-profile">
-            <img src="https://i.pravatar.cc/40" alt="User">
-            <span class="schedule"><a>Add a schedule</a><i class='bx bx-plus'></i></span>
+            <a href="/login"><i class='bx bx-user-circle'></i></a>
+            <span class="schedule"><a href="/login">Add a schedule <i class='bx bx-plus'></i></a></span>
         </div>
         <div class="content-view">
-            <div class="scroller"> 
+            <div class="scroller">
                 <ul class="text-list">
                     <li>Task: Debugs..</li>
                     <li>Task: Test..</li>

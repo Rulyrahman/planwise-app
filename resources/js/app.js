@@ -10,12 +10,56 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebarOpen = document.querySelector(".sidebarOpen"),
         sidebarClose = document.querySelector(".sidebarClose");
 
+    const listItems = document.querySelectorAll(".text-list li");
+    const scroller = document.querySelector(".scroller");
+
+    // Text animation homepage
+    function animateRandomly() {
+        let usedIndexes = new Set();
+
+        listItems.forEach(item => {
+            item.style.opacity = "0";
+        });
+
+        function showNextBubble() {
+            if (usedIndexes.size >= listItems.length) {
+                setTimeout(animateRandomly, 2000);
+                return;
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * listItems.length);
+            } while (usedIndexes.has(randomIndex));
+
+            usedIndexes.add(randomIndex);
+
+            let item = listItems[randomIndex];
+
+            let randomX = Math.random() * (scroller.clientWidth - 150);
+            let randomY = Math.random() * (scroller.clientHeight - 50);
+
+            item.style.left = `${randomX}px`;
+            item.style.top = `${randomY}px`;
+
+            item.style.animation = "fadeInBubble 0.5s forwards";
+
+            setTimeout(() => {
+                item.style.animation = "fadeOutBubble 0.5s forwards";
+            }, 1800);
+
+            setTimeout(showNextBubble, Math.random() * 1000 + 500);
+        }
+
+        showNextBubble();
+    }
+
+    // Toggle dark and light mode
     let getMode = localStorage.getItem("mode");
     if (getMode === "dark-mode") {
         body.classList.add("dark");
     }
 
-    // Toggle dark and light mode
     if (modeToggle) {
         modeToggle.addEventListener("click", () => {
             modeToggle.classList.toggle("active");
@@ -96,4 +140,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateProfilePosition();
     window.addEventListener("resize", updateProfilePosition);
+    animateRandomly();
 });

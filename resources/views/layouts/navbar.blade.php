@@ -27,13 +27,18 @@
                     @if (Auth::check())
                         <img src="{{ Auth::user()->profile_image ?? 'https://i.pravatar.cc/40' }}" alt="User">
                     @else
-                        <a href="/login"><i class='bx bx-user-circle'></i></a>
+                        <i class='bx bx-user-circle'></i>
                     @endif
                 </div>
                 @if (Auth::check())
                     <div class="profile-dropdown">
                         <a href="#">PROFIL MENU</a>
                         <a href="#">LOGOUT</a>
+                    </div>
+                @else
+                    <div class="profile-dropdown">
+                        <a href="/login">LOGIN</a>
+                        <a href="/register">REGISTER</a>
                     </div>
                 @endif
             </div>

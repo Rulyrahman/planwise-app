@@ -289,6 +289,7 @@ footer {
     font-size: 40px;
     border-radius: 50%;
     outline: 1px solid var(--text-color);
+    color: var(--text-color);
 }
 
 .schedule {
@@ -404,7 +405,7 @@ footer {
     width: 400px;
     margin: 50px auto;
     padding: 20px;
-    border: 1px solid var(--text-color);
+    background-color: var(--text-color);
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -412,6 +413,8 @@ footer {
 .login-header {
     text-align: center;
     margin-bottom: 30px;
+    color: var(--body-color);
+    font-size: 20px;
 }
 
 .form-group {
@@ -442,6 +445,10 @@ input {
     width: 100%;
     font-size: 16px;
     margin-top: 15px;
+}
+
+.button:hover {
+    background-color: #4385cb;
 }
 
 .error {

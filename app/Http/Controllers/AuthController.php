@@ -36,7 +36,7 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function showLoginForm()
+    public function ShowLoginForm()
     {
         return view('auth.login');
     }
@@ -46,6 +46,9 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+        ], [
+            'email.required' => 'Email must not be empty',
+            'password.required' => 'Password must not be empty',
         ]);
 
         if (Auth::attempt($credentials)) {
@@ -54,7 +57,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
+            'email' => 'Email or password is incorrect.',
         ])->onlyInput('email');
     }
 
@@ -63,7 +66,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect('/login');
     }
+
 }

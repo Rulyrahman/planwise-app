@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -18,3 +19,5 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::resource('users', UserApiController::class);

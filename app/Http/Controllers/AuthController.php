@@ -10,6 +10,32 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed'
+
+        ]);
+
+        $user = User::created([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => hash::make($request->password)
+        ]);
+
+        return response()->json([
+            'message' => 'Registrasi berhasil!',
+            'user' => $user
+        ], 201);
+    }
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -30,32 +56,6 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
-    }
-
-    public function showRegisterForm()
-    {
-        return view('auth.register');
-    }
-
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed'
-
-        ]);
-        
-        $user = User::created([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => hash::make($request->password)
-        ]);
-
-        return response()->json([
-            'message' => 'Registrasi berhasil!',
-            'user' => $user
-        ], 201);
     }
 
     public function logout(Request $request)

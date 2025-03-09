@@ -185,6 +185,7 @@ nav .nav-bar .logo a {
     color: var(--text-color);
     stroke-width: 2px;
 }
+
 /* Dropdown Menu */
 .profile-dropdown {
     position: absolute;
@@ -383,6 +384,7 @@ footer {
         opacity: 0;
         transform: translateY(20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -394,6 +396,7 @@ footer {
         opacity: 1;
         transform: translateY(0);
     }
+
     100% {
         opacity: 0;
         transform: translateY(-20px);
@@ -445,6 +448,10 @@ input {
     width: 100%;
     font-size: 16px;
     margin-top: 15px;
+}
+
+.btn-login {
+    background-color: #007bff;
 }
 
 .button:hover {

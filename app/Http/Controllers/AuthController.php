@@ -36,24 +36,25 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function ShowLoginForm()
+    public function showLoginForm()
     {
         return view('auth.login');
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ], [
             'email.required' => 'Email must not be empty',
+            'email.email' => 'Invalid email format',
             'password.required' => 'Password must not be empty',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with('success', 'Login successful');
         }
 
         return back()->withErrors([
@@ -66,7 +67,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/login')->with('success', 'You have been logged out.');
     }
-
 }

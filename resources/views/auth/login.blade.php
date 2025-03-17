@@ -7,7 +7,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <div class="login-form">
         <h3>Login Here</h3>
         @csrf
         <label for="username">Email</label>
@@ -21,5 +21,5 @@
             <div class="go"><i class="fab fa-google"></i> Google</div>
             <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
         </div>
-    </form>
+    </div>
 @endsection

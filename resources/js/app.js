@@ -2,8 +2,8 @@ import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.querySelector("body"),
-        nav = document.querySelector("nav"),
         modeToggle = document.querySelector(".dark-light"),
+        nav = document.querySelector("nav"),
         userMenu = document.querySelector(".userMenu"),
         profileDropdown = document.querySelector(".profile-dropdown"),
         profileContainer = document.querySelector(".profile-container"),
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function animateRandomly() {
         let usedIndexes = new Set();
 
-        listItems.forEach(item => {
+        listItems.forEach((item) => {
             item.style.opacity = "0";
         });
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Toggle dark and light mode
     let getMode = localStorage.getItem("mode");
-    if (getMode === "dark-mode") {
+    if (localStorage.getItem("mode") === "dark-mode") {
         body.classList.add("dark");
     }
 

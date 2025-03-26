@@ -128,15 +128,42 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    body.addEventListener("click", (e) => {
-        let clickedElm = e.target;
-        if (
-            !clickedElm.classList.contains("sidebarOpen") &&
-            !clickedElm.classList.contains("menu")
-        ) {
-            nav.classList.remove("active");
-        }
-    });
+    if (nav) {
+        body.addEventListener("click", (e) => {
+            let clickedElm = e.target;
+            if (
+                !clickedElm.classList.contains("sidebarOpen") &&
+                !clickedElm.classList.contains("menu")
+            ) {
+                nav.classList.remove("active");
+            }
+        });
+    }
+
+    // Logout
+    const logoutButton = document.querySelector("#logout-button");
+    if (logoutButton) {
+        logoutButton.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            fetch("/logout", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({}),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                })
+                .catch((error) => console.error("Logout failed:", error));
+        });
+    }
 
     updateProfilePosition();
     window.addEventListener("resize", updateProfilePosition);

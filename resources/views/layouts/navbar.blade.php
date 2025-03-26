@@ -33,7 +33,10 @@
                 @if (Auth::check())
                     <div class="profile-dropdown">
                         <a href="#">PROFIL MENU</a>
-                        <a href="#">LOGOUT</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">LOGOUT</button>
+                        </form>
                     </div>
                 @else
                     <div class="profile-dropdown">

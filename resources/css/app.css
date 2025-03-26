@@ -233,6 +233,7 @@ body.dark .profile-dropdown {
     cursor: pointer;
     text-decoration: none;
     color: var(--body-color);
+    background: none;
 }
 
 .profile-dropdown a:hover,
@@ -447,7 +448,7 @@ footer {
     font-weight: 300;
 }
 
-button {
+.login-btn {
     margin-top: 50px;
     width: 100%;
     background-color: var(--text-color);
@@ -462,6 +463,7 @@ button {
 .social {
     margin-top: 30px;
     display: flex;
+    cursor: pointer;
 }
 
 .social div {
@@ -471,10 +473,6 @@ button {
     background-color: var(--text-color);
     color: var(--body-color);
     text-align: center;
-}
-
-.social div:hover {
-    backdrop-filter: blur 2px;
 }
 
 .social .fb {

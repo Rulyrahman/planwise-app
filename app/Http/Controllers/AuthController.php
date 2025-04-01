@@ -19,21 +19,21 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed'
-
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::created([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
-        return response()->json([
-            'message' => 'Registrasi berhasil!',
-            'user' => $user
-        ], 201);
+        Auth::login($user);
+
+        $user->sendEmailVerificationNotification();
+
+        return redirect('/login')->with('success', 'Registration successful! Please check your email for verification.');
     }
 
     public function showLoginForm()

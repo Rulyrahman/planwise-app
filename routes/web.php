@@ -33,9 +33,19 @@ Route::get('/email/verify', function () {
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/dashboard');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    $user = \App\Models\User::findOrFail($request->route('id'));
+
+    if (!hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
+        abort(403);
+    }
+
+    if (!$user->hasVerifiedEmail()) {
+        $user->markEmailAsVerified();
+    }
+
+    return response()->json(['message' => 'Email verified successfully.']);
+})->middleware(['signed'])->name('verification.verify');
+
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();

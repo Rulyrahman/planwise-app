@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -29,11 +29,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
+        event(new Registered($user));
 
-        $user->sendEmailVerificationNotification();
-
-        return redirect('/login')->with('success', 'Registration successful! Please check your email for verification.');
+        return redirect()->route('login')->with('message', 'Silakan cek email untuk verifikasi!');
     }
 
     public function showLoginForm()
@@ -53,6 +51,17 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            $user = Auth::user();
+
+            if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail) {
+                if (!$user->hasVerifiedEmail()) {
+                    Auth::logout();
+                    return back()->withErrors([
+                        'email' => 'Your email is not verified. Please check your inbox.',
+                    ])->onlyInput('email');
+                }
+            }
+
             $request->session()->regenerate();
             return redirect()->intended('/dashboard')->with('success', 'Login successful');
         }

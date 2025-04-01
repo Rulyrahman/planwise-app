@@ -3,34 +3,38 @@
 @section('title', 'login')
 
 @section('content')
-    <div class="login-container">
-        <div class="login-header">
-            <h2>LOGIN</h2>
+    <div class="login-blade">
+        <div class="btn-req-back">
+            <a href="/">BACK</a>
+            <a href="/register">REGS</a>
         </div>
-
-        @if ($errors->any())
-            <div class="error">
-                {{ $errors->first() }}
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="form-group">
+        <div class="login-form">
+            <h3>Login Here</h3>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="email@example.com" required>
-            </div>
+                <input type="text" placeholder="Email" id="email" name="email" value="{{ old('email') }}" required>
 
-            <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="password" required>
-            </div>
+                <input type="password" placeholder="Password" id="password" name="password" required>
 
-            <button type="submit" class="button">Masuk</button>
+                <button class="login-btn" type="submit">Log In</button>
 
-            {{-- <div style="margin-top: 15px;">
-            <a href="{{ route('forgot-password') }}" style="color: #007bff;">Lupa Password?</a>
-        </div> --}}
-        </form>
+                <div class="social">
+                    <div class="go"><i class="fab fa-google"></i> Google</div>
+                    <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
+                </div>
+
+            </form>
+            @if ($errors->any())
+                <div class="alert alert-danger mt-2">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
     </div>
 @endsection

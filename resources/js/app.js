@@ -2,8 +2,8 @@ import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.querySelector("body"),
-        nav = document.querySelector("nav"),
         modeToggle = document.querySelector(".dark-light"),
+        nav = document.querySelector("nav"),
         userMenu = document.querySelector(".userMenu"),
         profileDropdown = document.querySelector(".profile-dropdown"),
         profileContainer = document.querySelector(".profile-container"),
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function animateRandomly() {
         let usedIndexes = new Set();
 
-        listItems.forEach(item => {
+        listItems.forEach((item) => {
             item.style.opacity = "0";
         });
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Toggle dark and light mode
     let getMode = localStorage.getItem("mode");
-    if (getMode === "dark-mode") {
+    if (localStorage.getItem("mode") === "dark-mode") {
         body.classList.add("dark");
     }
 
@@ -128,15 +128,42 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    body.addEventListener("click", (e) => {
-        let clickedElm = e.target;
-        if (
-            !clickedElm.classList.contains("sidebarOpen") &&
-            !clickedElm.classList.contains("menu")
-        ) {
-            nav.classList.remove("active");
-        }
-    });
+    if (nav) {
+        body.addEventListener("click", (e) => {
+            let clickedElm = e.target;
+            if (
+                !clickedElm.classList.contains("sidebarOpen") &&
+                !clickedElm.classList.contains("menu")
+            ) {
+                nav.classList.remove("active");
+            }
+        });
+    }
+
+    // Logout
+    const logoutButton = document.querySelector("#logout-button");
+    if (logoutButton) {
+        logoutButton.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            fetch("/logout", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({}),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                })
+                .catch((error) => console.error("Logout failed:", error));
+        });
+    }
 
     updateProfilePosition();
     window.addEventListener("resize", updateProfilePosition);

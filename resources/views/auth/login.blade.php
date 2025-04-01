@@ -35,6 +35,12 @@
                     </ul>
                 </div>
             @endif
+
+            {{-- @if (session('message'))
+                <script>
+                    alert("{{ session('message') }}");
+                </script>
+            @endif --}}
         </div>
     </div>
 @endsection

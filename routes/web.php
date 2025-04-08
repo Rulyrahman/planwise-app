@@ -12,7 +12,8 @@ Route::get('/', function () {
     return view('pages/homepage');
 })->name('homepage');
 
-Route::resource('menu', MenuController::class)->only(['store', 'destroy']);
+Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+Route::delete('/menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
 Auth::routes(['verify' => true]);
 

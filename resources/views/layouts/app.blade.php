@@ -15,15 +15,19 @@
 
 <body>
 
-    @if(!in_array(request()->path(), ['login', 'register']))
+    @if (!in_array(request()->path(), ['login', 'register']))
         @include('layouts.navbar')
+    @endif
+
+    @if (request()->is('dashboard*'))
+        @include('layouts.menu')
     @endif
 
     <div class="main-content">
         @yield('content')
     </div>
 
-    @if(!in_array(request()->path(), ['login', 'register']))
+    @if (!in_array(request()->path(), ['login', 'register']))
         @include('layouts.footer')
     @endif
 

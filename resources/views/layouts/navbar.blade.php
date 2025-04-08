@@ -10,7 +10,7 @@
                 <i class='bx bx-x siderbarClose'></i>
             </div>
             <ul class="nav-links">
-                <li><a href="/">DASHBOARD</a></li>
+                <li><a href="/dashboard">DASHBOARD</a></li>
                 <li><a href="#">MY TIMES</a></li>
             </ul>
         </div>

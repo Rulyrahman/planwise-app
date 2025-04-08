@@ -19,10 +19,6 @@
         @include('layouts.navbar')
     @endif
 
-    @if (request()->is('dashboard*'))
-        @include('layouts.menu')
-    @endif
-
     <div class="main-content">
         @yield('content')
     </div>

@@ -43,7 +43,7 @@
             @endif
 
             @if (session('verify_error'))
-                <div class="alert alert-warning">
+                <div class="alert-verify">
                     {{ session('verify_error') }}
                     <form method="POST" action="{{ route('verification.send') }}">
                         @csrf

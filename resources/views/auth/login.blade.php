@@ -48,7 +48,7 @@
                     <form method="POST" action="{{ route('verification.send') }}">
                         @csrf
                         <input type="hidden" name="email" value="{{ session('unverified_email') }}">
-                        <button type="submit" class="btn btn-sm btn-primary mt-2">Kirim Ulang Link Verifikasi</button>
+                        <button type="submit" class="btn btn-sm btn-primary mt-2">Re-verification</button>
                     </form>
                 </div>
             @endif

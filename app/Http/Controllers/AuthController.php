@@ -34,7 +34,7 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('login')->with('message', 'Silakan cek email untuk verifikasi!');
+        return redirect()->route('login')->with('message', 'Please check your email for verification!');
     }
 
     public function showLoginForm()
@@ -63,15 +63,15 @@ class AuthController extends Controller
 
                 session()->put('unverified_email', $user->email);
 
-                return redirect()->route('login')->with('verify_error', 'Email belum diverifikasi.');
+                return redirect()->route('login')->with('verify_error', 'Email has not been verified');
             }
 
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', 'Login berhasil!');
+            return redirect()->intended('/dashboard')->with('success', 'Login success!');
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
+            'email' => 'Incorrect email or password',
         ])->onlyInput('email');
     }
 

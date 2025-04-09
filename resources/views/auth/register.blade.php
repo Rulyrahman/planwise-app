@@ -41,23 +41,6 @@
                 </div>
             @endif
 
-            {{-- @if (session('message'))
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <script>
-                    Swal.fire({
-                        title: "Verifikasi Diperlukan!",
-                        text: "{{ session('message') }}",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Kirim Ulang Email",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "{{ route('verification.send') }}";
-                        }
-                    });
-                </script>
-            @endif --}}
-
         </div>
     </div>
 @endsection

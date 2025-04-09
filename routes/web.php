@@ -45,7 +45,7 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
         event(new Verified($user));
     }
 
-    return redirect()->route('login')->with('status', 'Email berhasil diverifikasi!');
+    return redirect()->route('login')->with('status', 'Email verified successfully!');
 })->middleware(['signed'])->name('verification.verify');
 
 
@@ -56,10 +56,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     if ($user && !$user->hasVerifiedEmail()) {
         $user->sendEmailVerificationNotification();
-        return back()->with('status', 'Link verifikasi telah dikirim ke email.');
+        return back()->with('status', 'A verification link has been sent to your email');
     }
 
-    return back()->with('verify_error', 'Email tidak ditemukan atau sudah diverifikasi.');
+    return back()->with('verify_error', 'Email not found or verified');
 })->name('verification.send');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

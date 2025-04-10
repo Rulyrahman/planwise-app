@@ -10,7 +10,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        return view('pages.dashboard', compact('menus'));
+        return view('tasks.index', compact('menus'));
     }
 
     public function store(Request $request)

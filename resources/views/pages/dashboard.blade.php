@@ -7,9 +7,6 @@
         <h1>Dashboard</h1>
     </div>
 
-    @isset($menus)
-        @include('components.menu')
-    @else
-        <p>Menu belum tersedia.</p>
-    @endisset
+    @include('tasks.index')
+
 @endsection

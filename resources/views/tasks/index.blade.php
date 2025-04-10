@@ -14,6 +14,7 @@
                     <div>
                         <strong>{{ $task->title }}</strong>
                         <p class="mb-0 text-muted">{{ $task->description }}</p>
+                        <small class="text-muted">{{ ucfirst(str_replace('_', ' ', $task->status)) }}</small>
                     </div>
                     <div>
                         <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-warning">✏️ Edit</a>
@@ -28,7 +29,7 @@
                 </div>
             </div>
         @empty
-            <p class="text-muted">Kamu belum memiliki tugas apapun.</p>
+            <p class="text-muted">Belum ada tugas.</p>
         @endforelse
 
         {{-- @include('components.menu') --}}

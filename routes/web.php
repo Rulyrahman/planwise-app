@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use App\Http\Controllers\TaskController;
+use App\Mail\CustomNotification;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     return view('pages/homepage');
@@ -72,4 +74,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
     Route::put('/dashboard/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+});
+
+Route::get('/send-email', function () {
+    try {
+        Mail::to('user@example.com')->send(new CustomNotification("This is a test email"));
+        return "Email successfully sent!";
+    } catch (\Exception $e) {
+        return "Failed to send email: " . $e->getMessage();
+    }
 });

@@ -5,11 +5,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\TaskController;
+
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
-use App\Http\Controllers\TaskController;
 use App\Mail\CustomNotification;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 Route::get('/', function () {
     return view('pages/homepage');
@@ -37,7 +39,7 @@ Route::get('/register', function () {
 Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
 
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
-    $user = \App\Models\User::findOrFail($id);
+    $user = User::findOrFail($id);
 
     if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
         abort(403, 'Invalid verification link.');
@@ -58,11 +60,21 @@ Route::post('/email/verification-notification', function (Request $request) {
     $user = User::where('email', $request->email)->first();
 
     if ($user && !$user->hasVerifiedEmail()) {
-        $user->sendEmailVerificationNotification();
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            [
+                'id' => $user->id,
+                'hash' => sha1($user->getEmailForVerification())
+            ]
+        );
+
+        Mail::to($user->email)->send(new CustomNotification($user, $verificationUrl));
+
         return back()->with('status', 'A verification link has been sent to your email');
     }
 
-    return back()->with('verify_error', 'Email not found or verified');
+    return back()->with('verify_error', 'Email not found or already verified.');
 })->name('verification.send');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -74,13 +86,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
     Route::put('/dashboard/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
-});
-
-Route::get('/send-email', function () {
-    try {
-        Mail::to('user@example.com')->send(new CustomNotification("This is a test email"));
-        return "Email successfully sent!";
-    } catch (\Exception $e) {
-        return "Failed to send email: " . $e->getMessage();
-    }
 });

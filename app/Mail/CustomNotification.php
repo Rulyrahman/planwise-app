@@ -10,22 +10,28 @@ class CustomNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $customMessage;
+    public $user;
+    public $verificationUrl;
 
-     /**
+    /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($customMessage)
+    public function __construct($user, $verificationUrl)
     {
-        $this->customMessage = $customMessage;
+        $this->user = $user;
+        $this->verificationUrl = $verificationUrl;
     }
+
 
     public function build()
     {
-        return $this->view('emails.notification')
-                    ->with(['customMessage' => $this->customMessage]);
+        return $this->subject('Goodtimes Verification')
+            ->view('emails.notification')
+            ->with([
+                'user' => $this->user,
+                'verificationUrl' => $this->verificationUrl,
+            ]);
     }
-
 }

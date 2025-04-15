@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\URL;
+use App\Mail\CustomNotification;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,9 +35,21 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            [
+                'id' => $user->getKey(),
+                'hash' => sha1($user->getEmailForVerification()),
+            ]
+        );
+
+
+        Mail::to($user->email)->send(new CustomNotification($user, $verificationUrl));
+
         event(new Registered($user));
 
-        return redirect()->route('login')->with('message', 'Please check your email for verification!');
+        return redirect()->route('login')->with('success', 'Please check your email for verification!');
     }
 
     public function showLoginForm()

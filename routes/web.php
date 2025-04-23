@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\TaskController;
@@ -16,9 +15,6 @@ use Illuminate\Support\Facades\URL;
 Route::get('/', function () {
     return view('pages/homepage');
 })->name('homepage');
-
-Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
-Route::delete('/menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
 Auth::routes(['verify' => true]);
 

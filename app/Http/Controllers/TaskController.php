@@ -60,4 +60,17 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('dashboard')->with('success', 'Tugas berhasil dihapus.');
     }
+
+    public function task(Request $request)
+    {
+        $query = Task::query();
+
+        if ($request->has('status') && $request->status !== '') {
+            $query->where('status', $request->status);
+        }
+
+        $tasks = $query->latest()->get();
+
+        return view('tasks.index', compact('tasks'));
+    }
 }

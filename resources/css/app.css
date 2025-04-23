@@ -629,16 +629,124 @@ footer {
     cursor: pointer;
 }
 
-/* Menu Section */
-.menu-container {
-    /* max-width: 1000px; */
-    top: 0;
+/* Task Index */
+.main-layout-task {
+    display: flex;
+    max-width: 1000px;
     width: 100%;
-    background-color: white;
+    height: 100%;
+    margin-top: 95px;
+    gap: 10px;
+}
+
+.task-menu {
+    width: 240px;
+    color: var(--text-color);
     padding: 20px;
-    height: auto;
-    justify-content: start;
-    justify-items: start;
-    position: absolute;
-    
+    border-radius: 30px;
+    border: 2px solid var(--text-color);
+    background: var(--body-color);
+}
+
+.task-menu h2 {
+    margin-bottom: 20px;
+}
+
+.task-menu ul {
+    list-style: none;
+}
+
+.task-menu ul li {
+    margin-bottom: 12px;
+}
+
+.task-menu ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.task-menu ul li a:hover {
+    color: var(--side-nav);
+}
+
+.content-task {
+    flex: 1;
+    padding: 40px;
+    border-radius: 30px;
+    border: 2px solid var(--text-color);
+    background: var(--body-color);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.filter-bar {
+    margin-bottom: 30px;
+}
+
+.filter-bar select {
+    padding: 6px 12px;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.task-card {
+    background-color: #f1f2f6;
+    padding: 20px;
+    border-left: 5px solid #0984e3;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.task-info p {
+    margin: 5px 0;
+    color: var(--body-color);
+}
+
+.status {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    margin-top: 8px;
+}
+
+.task-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn {
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.edit {
+    background-color: #fdcb6e;
+    color: #2d3436;
+}
+
+.delete {
+    background-color: #d63031;
+    color: var(--text-color);
+}
+
+.empty {
+    color: #aaa;
+    font-style: italic;
 }

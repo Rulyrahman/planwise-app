@@ -6,4 +6,7 @@
     <div class="text-center">
         <h1>Dashboard</h1>
     </div>
+
+    @include('tasks.index')
+
 @endsection

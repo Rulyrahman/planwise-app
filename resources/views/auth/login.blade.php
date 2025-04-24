@@ -35,6 +35,23 @@
                     </ul>
                 </div>
             @endif
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            @if (session('verify_error'))
+                <div class="alert-verify">
+                    {{ session('verify_error') }}
+                    <form method="POST" action="{{ route('verification.send') }}">
+                        @csrf
+                        <input type="hidden" name="email" value="{{ session('unverified_email') }}">
+                        <button type="submit" class="btn btn-sm btn-primary mt-2">Re-verification</button>
+                    </form>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

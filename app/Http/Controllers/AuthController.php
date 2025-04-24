@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\URL;
+use App\Mail\CustomNotification;
+use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class AuthController extends Controller
 {
@@ -29,11 +35,21 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            [
+                'id' => $user->getKey(),
+                'hash' => sha1($user->getEmailForVerification()),
+            ]
+        );
 
-        $user->sendEmailVerificationNotification();
 
-        return redirect('/login')->with('success', 'Registration successful! Please check your email for verification.');
+        Mail::to($user->email)->send(new CustomNotification($user, $verificationUrl));
+
+        event(new Registered($user));
+
+        return redirect()->route('login')->with('success', 'Please check your email for verification!');
     }
 
     public function showLoginForm()
@@ -52,13 +68,25 @@ class AuthController extends Controller
             'password.required' => 'Password must not be empty',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $user = Auth::user();
+
+            if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail()) {
+                Auth::logout();
+
+                session()->put('unverified_email', $user->email);
+
+                return redirect()->route('login')->with('verify_error', 'Email has not been verified');
+            }
+
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', 'Login successful');
+            return redirect()->intended('/dashboard')->with('success', 'Login success!');
         }
 
         return back()->withErrors([
-            'email' => 'Email or password is incorrect.',
+            'email' => 'Incorrect email or password',
         ])->onlyInput('email');
     }
 
